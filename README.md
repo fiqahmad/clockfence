@@ -57,7 +57,23 @@ php artisan optimize
 
 Then run a queue worker (`php artisan queue:work --tries=3`) and the scheduler cron (`* * * * * cd /path/to/clockfence && php artisan schedule:run >> /dev/null 2>&1`).
 
-A Docker setup is coming ([#6](https://github.com/fiqahmad/clockfence/issues/6)).
+### Self-host with Docker
+
+```bash
+git clone https://github.com/fiqahmad/clockfence.git && cd clockfence
+cp .env.example .env    # set APP_URL, APP_ENV=production, APP_DEBUG=false, DB_PASSWORD, MAIL_*
+docker compose build
+docker compose run --rm --no-deps -T -e AUTORUN_ENABLED=false app php artisan key:generate --show
+# paste the printed key into APP_KEY in .env
+docker compose up -d --wait
+docker compose exec app php artisan clockfence:install
+```
+
+The stack runs the app on port 8000 (`APP_PORT`), MySQL 8.4, a queue worker and the scheduler, and migrates on start. Put it behind a reverse proxy with HTTPS (Caddy, Nginx with Let's Encrypt, or Cloudflare).
+
+### Install with a coding agent
+
+Open the cloned folder in Claude Code and run `/install-clockfence`. Other agents: ask them to follow the "Install" section of [`AGENTS.md`](AGENTS.md).
 
 ### Check the install
 

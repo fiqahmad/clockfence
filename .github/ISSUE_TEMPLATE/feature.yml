@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest an improvement.
+labels: [enhancement, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Payroll, leave management, biometrics, native apps, background tracking, Google Maps and multi-tenancy are out of scope for v1. See the README.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: Who has it (Staff member, Manager, Admin, self-hoster) and what they cannot do today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: rules
+    attributes:
+      label: Rules affected
+      description: Does this touch any of the "Rules that never bend" in AGENTS.md? Which ones, and why is that safe?
