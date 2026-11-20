@@ -1,0 +1,57 @@
+name: docker
+
+on:
+  pull_request:
+    paths:
+      - Dockerfile
+      - .dockerignore
+      - docker-compose.yml
+      - composer.lock
+      - package-lock.json
+      - .github/workflows/docker.yml
+  push:
+    branches:
+      - main
+    paths:
+      - Dockerfile
+      - .dockerignore
+      - docker-compose.yml
+      - .github/workflows/docker.yml
+
+permissions:
+  contents: read
+
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Prepare .env as in the README
+        run: |
+          cp .env.example .env
+          sed -i 's/^APP_ENV=.*/APP_ENV=production/; s/^APP_DEBUG=.*/APP_DEBUG=false/' .env
+          echo "DB_PASSWORD=ci-password" >> .env
+          docker compose build
+          key=$(docker compose run --rm --no-deps -T -e AUTORUN_ENABLED=false app php artisan key:generate --show | tail -1)
+          sed -i "s|^APP_KEY=.*|APP_KEY=${key}|" .env
+          grep -q '^APP_KEY=base64:' .env
+
+      - name: Start the stack
+        run: docker compose up -d --wait --wait-timeout 180
+
+      - name: Create the first Admin
+        run: docker compose exec -T app php artisan clockfence:install --name="CI Admin" --email=ci@example.com --password=ci-password
+
+      - name: App answers
+        run: |
+          curl --fail --silent --show-error http://localhost:8000/up > /dev/null
+          curl --fail --silent --show-error http://localhost:8000/admin/login > /dev/null
+
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs --tail=200
