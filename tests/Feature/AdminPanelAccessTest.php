@@ -1,22 +1,21 @@
 <?php
 
+use App\Enums\Role;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
+use Database\Seeders\RoleSeeder;
 
 beforeEach(function () {
-    foreach (['admin', 'manager', 'staff'] as $roleName) {
-        Role::findOrCreate($roleName);
-    }
+    $this->seed(RoleSeeder::class);
 });
 
-it('lets admins and managers open the admin panel', function (string $roleName) {
-    $user = User::factory()->create()->assignRole($roleName);
+it('lets admins and managers open the admin panel', function (Role $role) {
+    $user = User::factory()->withRole($role)->create();
 
     $this->actingAs($user)->get('/admin')->assertOk();
-})->with(['admin', 'manager']);
+})->with(Role::panelRoles());
 
 it('keeps staff out of the admin panel', function () {
-    $user = User::factory()->create()->assignRole('staff');
+    $user = User::factory()->withRole(Role::Staff)->create();
 
     $this->actingAs($user)->get('/admin')->assertForbidden();
 });
