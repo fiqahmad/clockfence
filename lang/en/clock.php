@@ -1,6 +1,30 @@
 <?php
 
 return [
+    'page' => [
+        'title' => 'Clock',
+        'greeting' => 'Hello, :name',
+        'site' => 'Your Site: :site',
+        'clock_in' => 'Clock in',
+        'clock_out' => 'Clock out',
+        'done' => 'You have clocked in and out today. See you next time.',
+        'no_site' => 'You have no home Site yet, so you cannot Clock. Ask your Admin to assign one.',
+        'inactive' => 'Your account is not active. Please contact your Admin.',
+        'locating' => 'Finding your location…',
+        'checking' => 'Checking you are at your Site…',
+        'scan' => 'Point the camera at the poster at your Site entrance.',
+        'seconds_left' => ':seconds s left to scan',
+        'saving' => 'Saving…',
+        'clocked_in' => 'Clocked in at :time.',
+        'clocked_out' => 'Clocked out at :time.',
+        'late' => 'You were :minutes minutes late.',
+        'try_again' => 'Try again',
+        'cancel' => 'Cancel',
+        'no_scanner' => 'This browser cannot read QR codes. Open this page in Chrome, Edge or Samsung Internet.',
+        'install_hint' => 'Tip: add this page to your home screen to open it in one tap.',
+        'admin_link' => 'Admin panel',
+        'logout' => 'Log out',
+    ],
     'failures' => [
         'insecure_context' => 'This page must be opened over a secure link (https://). Please tell your Admin.',
         'location_denied' => 'Location is blocked for this page. Allow location in your browser settings, then try again.',

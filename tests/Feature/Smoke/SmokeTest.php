@@ -14,8 +14,9 @@ use Livewire\Livewire;
 
 pest()->group('smoke');
 
-it('boots and serves the home page', function () {
-    $this->get('/')->assertOk();
+it('boots and serves the login page', function () {
+    $this->get('/')->assertRedirect(route('login'));
+    $this->get('/login')->assertOk();
 });
 
 it('has no pending migrations', function () {

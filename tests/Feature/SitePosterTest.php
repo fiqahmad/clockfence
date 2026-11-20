@@ -26,7 +26,7 @@ it('keeps staff and guests away from posters', function () {
         ->assertForbidden();
 
     auth()->logout();
-    $this->get(route('sites.poster', $this->site))->assertRedirect(route('filament.admin.auth.login'));
+    $this->get(route('sites.poster', $this->site))->assertRedirect(route('login'));
 });
 
 it('has no poster for an archived site', function () {

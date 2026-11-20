@@ -1,6 +1,30 @@
 <?php
 
 return [
+    'page' => [
+        'title' => 'Rekod kehadiran',
+        'greeting' => 'Hai, :name',
+        'site' => 'Tapak anda: :site',
+        'clock_in' => 'Rekod masuk',
+        'clock_out' => 'Rekod keluar',
+        'done' => 'Anda sudah merekod masuk dan keluar hari ini. Jumpa lagi.',
+        'no_site' => 'Anda belum mempunyai Tapak utama, jadi anda tidak boleh merekod kehadiran. Minta Admin anda menetapkannya.',
+        'inactive' => 'Akaun anda tidak aktif. Sila hubungi Admin anda.',
+        'locating' => 'Mengesan lokasi anda…',
+        'checking' => 'Menyemak anda berada di Tapak anda…',
+        'scan' => 'Halakan kamera ke poster di pintu masuk Tapak anda.',
+        'seconds_left' => ':seconds saat lagi untuk imbas',
+        'saving' => 'Menyimpan…',
+        'clocked_in' => 'Rekod masuk pada :time.',
+        'clocked_out' => 'Rekod keluar pada :time.',
+        'late' => 'Anda lewat :minutes minit.',
+        'try_again' => 'Cuba lagi',
+        'cancel' => 'Batal',
+        'no_scanner' => 'Pelayar ini tidak boleh membaca kod QR. Buka halaman ini dalam Chrome, Edge atau Samsung Internet.',
+        'install_hint' => 'Petua: tambah halaman ini ke skrin utama untuk membukanya dengan satu ketikan.',
+        'admin_link' => 'Panel admin',
+        'logout' => 'Log keluar',
+    ],
     'failures' => [
         'insecure_context' => 'Halaman ini mesti dibuka melalui pautan selamat (https://). Sila maklumkan kepada Admin anda.',
         'location_denied' => 'Lokasi disekat untuk halaman ini. Benarkan lokasi dalam tetapan pelayar anda, kemudian cuba lagi.',
