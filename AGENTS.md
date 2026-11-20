@@ -6,6 +6,7 @@ only then does the camera open to scan the Site's static QR Poster. Security liv
 in that order of steps, not in the QR. Domain terms: `GLOSSARY.md`. Decisions: `docs/adr/`.
 
 ## Stack
+
 - Laravel 13, PHP 8.3+, MySQL 8 (PostgreSQL and SQLite tested in CI)
 - Inertia v3 + Vue 3 starter kit for auth and staff pages; Filament for the admin panel at `/admin` (ADR 0001)
 - The clock page is a standalone Blade view with vanilla JS: `public/js/clock.js` (ADR 0001)
@@ -14,14 +15,17 @@ in that order of steps, not in the QR. Domain terms: `GLOSSARY.md`. Decisions: `
 - Pest, Larastan (level 8), Pint
 
 ## Commands
+
 - Setup: `composer install && npm ci && npm run build && php artisan migrate --seed`
 - Dev server: `composer run dev`
 - Tests: `php artisan test --compact` | `--filter=Clock` | `--group=smoke`
 - Lint: `vendor/bin/pint` and `vendor/bin/phpstan analyse` (CI fails on either)
 - First admin: `php artisan clockfence:install`
+
 Run tests, Pint and Larastan before every commit.
 
 ## Where things live
+
 - `app/Clock/` - Clock domain: PhoneClock, Geofence, SitePoster, ClockAttempt, SiteTime
 - `app/Register/AttendanceRegister.php` - the only class that writes `attendances`
 - `app/Enums/ClockFailure.php` - every Clock failure (16 cases) and its message key
@@ -30,6 +34,7 @@ Run tests, Pint and Larastan before every commit.
 - `docs/adr/` - why key decisions were made; read before changing them
 
 ## Rules that never bend
+
 1. Geo-check before token, token before camera, scan spends token. Never reorder. Clock-out follows the same steps.
 2. Resolve the Site from the Staff member's record, never from request input.
 3. Spend the token with one conditional UPDATE before any other check.
@@ -42,6 +47,7 @@ Run tests, Pint and Larastan before every commit.
 10. Every new failure is a `ClockFailure` case with EN and MS copy and a test.
 
 ## Conventions
+
 - Use the vocabulary in `GLOSSARY.md` (Staff member, Site, Clock, Geo-check, Clock token, Attendance).
 - Domain logic in `app/Clock` and `app/Register`; controllers stay thin.
 - Form Requests for validation; API Resources for JSON; no raw arrays out.
@@ -53,7 +59,9 @@ Run tests, Pint and Larastan before every commit.
 - User-facing strings go in `lang/en` and `lang/ms`, never inline.
 
 ## Install
+
 When asked to install ClockFence:
+
 1. Ask the mode: demo (SQLite + seed), docker, or production.
 2. Check `php -v` (8.3+), extensions, `composer -V`, `node -v` (20+). Report gaps; do not install system packages without asking.
 3. `composer install`, `npm ci && npm run build`. Create `.env` from `.env.example` only if none exists, then `php artisan key:generate`.
@@ -61,10 +69,25 @@ When asked to install ClockFence:
 5. `php artisan test --group=smoke` must pass. Report the URL and admin login.
 
 ## Do not
+
 - Add Google Maps, payment, payroll or leave features (out of scope).
 - Commit `.env`, real coordinates of real workplaces, or personal data.
 - Run `migrate:fresh` or `db:wipe` on a database that has data.
 - Loosen a rule above to make a test pass. Ask instead.
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues on `fiqahmad/clockfence`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
 
 <laravel-boost-guidelines>
 === foundation rules ===
@@ -76,6 +99,7 @@ When asked to install ClockFence:
 This application is a Laravel application running on PHP 8.3. Always use the APIs that match the installed major version of each package — do not assume a version.
 
 Before relying on a package's API, confirm its installed version:
+
 - PHP packages: run `composer show --direct` to list direct dependencies with versions, or `composer show <vendor/package>` for a single package.
 - JS packages: check `package.json` for the installed versions.
 
@@ -146,7 +170,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 - Execute PHP in app context for debugging and testing code. Do not create models without user approval, prefer tests with factories instead. Prefer existing Artisan commands over custom tinker code.
 - Always use single quotes to prevent shell expansion: `php artisan tinker --execute 'Your::code();'`
-  - Double quotes for PHP strings inside: `php artisan tinker --execute 'User::where("active", true)->count();'`
+    - Double quotes for PHP strings inside: `php artisan tinker --execute 'User::where("active", true)->count();'`
 
 === php rules ===
 
@@ -248,6 +272,7 @@ Use Wayfinder to generate TypeScript functions for Laravel routes. Import from `
 # Inertia + Vue
 
 Vue components must have a single root element.
+
 - IMPORTANT: Activate `inertia-vue-development` when working with Inertia Vue client-side patterns.
 
 </laravel-boost-guidelines>
