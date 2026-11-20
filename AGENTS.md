@@ -60,13 +60,13 @@ Run tests, Pint and Larastan before every commit.
 
 ## Install
 
-When asked to install ClockFence:
+When asked to install ClockFence, follow `.claude/skills/install-clockfence/SKILL.md` (any agent can read it). In short:
 
 1. Ask the mode: demo (SQLite + seed), docker, or production.
 2. Check `php -v` (8.3+), extensions, `composer -V`, `node -v` (20+). Report gaps; do not install system packages without asking.
-3. `composer install`, `npm ci && npm run build`. Create `.env` from `.env.example` only if none exists, then `php artisan key:generate`.
-4. demo: `migrate --seed` | docker: `docker compose up -d` | production: `migrate --force`, `clockfence:install`, `optimize`.
-5. `php artisan test --group=smoke` must pass. Report the URL and admin login.
+3. Never overwrite an existing `.env`; never run `migrate:fresh` or `db:wipe` on data.
+4. demo: `composer setup` and `php artisan db:seed` | docker: build, generate `APP_KEY`, `docker compose up -d --wait`, `clockfence:install` | production: `migrate --force`, `clockfence:install`, `optimize`.
+5. Verify (demo: `php artisan test --group=smoke`; docker and production: `/up` answers). Report the URL and admin login.
 
 ## Do not
 

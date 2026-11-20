@@ -2,6 +2,12 @@
 
 ## Claude Code
 
+### Skills (`.claude/skills/`)
+
+- `/install-clockfence` - first-time install, any mode
+
+### How to work here
+
 - Plan first for anything touching `app/Clock` or `public/js/clock.js`; list which of the 10 rules it affects.
 - Write or update the test before the code; show it failing, then passing.
 - Keep diffs small: one milestone issue per session, one commit per step.
