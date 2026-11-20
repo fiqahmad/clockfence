@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-Please **do not open a public issue**. Report privately through [GitHub security advisories](https://github.com/fiqahmad/clockfence/security/advisories/new).
+Please **do not open a public issue**. Report privately through [GitHub security advisories](https://github.com/fiqahmad/clockfence-qr-attendance-geofence/security/advisories/new).
 
 Include what you found, how to reproduce it, and the impact. You will get an acknowledgement within 7 days and a fix or plan within 30 days for confirmed issues. Reporters are credited in the advisory unless they prefer otherwise.
 

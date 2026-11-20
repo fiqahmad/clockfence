@@ -79,7 +79,7 @@ When asked to install ClockFence, follow `.claude/skills/install-clockfence/SKIL
 
 ### Issue tracker
 
-GitHub Issues on `fiqahmad/clockfence`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+GitHub Issues on `fiqahmad/clockfence-qr-attendance-geofence`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

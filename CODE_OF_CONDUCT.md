@@ -10,7 +10,7 @@ This applies in all project spaces (issues, pull requests, discussions) and when
 
 ## Reporting
 
-Report unacceptable behaviour privately to the maintainer, [@fiqahmad](https://github.com/fiqahmad), through a GitHub direct contact or by opening a [private security advisory](https://github.com/fiqahmad/clockfence/security/advisories/new) marked "Code of conduct". Reports are handled confidentially.
+Report unacceptable behaviour privately to the maintainer, [@fiqahmad](https://github.com/fiqahmad), through a GitHub direct contact or by opening a [private security advisory](https://github.com/fiqahmad/clockfence-qr-attendance-geofence/security/advisories/new) marked "Code of conduct". Reports are handled confidentially.
 
 ## Enforcement
 
