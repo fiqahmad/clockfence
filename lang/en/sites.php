@@ -31,6 +31,7 @@ return [
         7 => 'Sunday',
     ],
     'actions' => [
+        'poster' => 'Poster',
         'archive' => 'Archive',
         'unarchive' => 'Unarchive',
         'archive_confirm' => 'The Site keeps its history but its Poster stops working.',
