@@ -31,7 +31,11 @@ yarn-error.log
 /.zed
 /.agents
 /.amp
-/.claude
+/.claude/*
+!/.claude/skills/
+/.claude/skills/*
+# Project skills are committed; Boost-generated skills stay ignored.
+!/.claude/skills/install-clockfence/
 /.codex
 /.cursor
 /.factory
