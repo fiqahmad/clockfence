@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Role;
+use App\Enums\StaffStatus;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -19,14 +21,20 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * @property int $id
  * @property string $name
+ * @property int|null $organization_id
  * @property string $email
+ * @property string|null $staff_no
+ * @property int|null $site_id
+ * @property StaffStatus $status
+ * @property string $locale
  * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Site|null $site
  */
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'staff_no', 'site_id', 'status', 'locale'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
 {
@@ -34,11 +42,37 @@ class User extends Authenticatable implements FilamentUser
     use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
-     * Only Admins and Managers may open the admin panel.
+     * Only Active Admins and Managers may open the admin panel.
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasAnyRole(array_map(fn (Role $role): string => $role->value, Role::panelRoles()));
+        return $this->isActive()
+            && $this->hasAnyRole(array_map(fn (Role $role): string => $role->value, Role::panelRoles()));
+    }
+
+    /**
+     * The home Site. A User with one is a Staff member, whatever their role.
+     *
+     * @return BelongsTo<Site, $this>
+     */
+    public function site(): BelongsTo
+    {
+        return $this->belongsTo(Site::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole(Role::Admin->value);
+    }
+
+    public function isManager(): bool
+    {
+        return $this->hasRole(Role::Manager->value);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === StaffStatus::Active;
     }
 
     /**
@@ -51,6 +85,7 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'status' => StaffStatus::class,
         ];
     }
 }

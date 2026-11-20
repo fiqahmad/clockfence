@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Role;
+use App\Models\Site;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Spatie\Permission\Models\Role as PermissionRole;
@@ -20,4 +21,11 @@ it('seeds one admin, one manager and three staff on demo domains', function () {
         ->and(User::role(Role::Manager->value)->count())->toBe(1)
         ->and(User::role(Role::Staff->value)->count())->toBe(3)
         ->and(User::pluck('email')->every(fn (string $email) => str_ends_with($email, '@demo.clockfence.test')))->toBeTrue();
+});
+
+it('seeds two demo sites and gives every staff member a home site', function () {
+    $this->seed();
+
+    expect(Site::count())->toBe(2)
+        ->and(User::role(Role::Staff->value)->whereNull('site_id')->exists())->toBeFalse();
 });
