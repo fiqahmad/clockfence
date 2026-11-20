@@ -18,3 +18,5 @@ All notable changes to ClockFence are documented here. The format follows [Keep 
 - The 16 named Clock failures with English and Bahasa Melayu messages.
 - The Clock flow: a Geo-check issues a 90-second single-use Clock token, and scanning the Site Poster spends it and records a Clock-in or Clock-out with Late minutes.
 - A printable A4 Poster per Site, in English and Bahasa Melayu.
+- Staff login and the clock page: an installable web app that reads the location once, opens the camera only with a Clock token, scans the Poster and shows each Clock failure in the Staff member's language.
+- Project skills for Claude Code: `add-clock-failure` and `clock-flow-change`.

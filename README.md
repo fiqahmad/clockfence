@@ -4,7 +4,7 @@
 
 Staff clock in and out with their own phone, with no app to install. The phone's location is checked against the staff member's own Site first. Only a pass issues a single-use token, and only then does the camera open to scan the static QR poster at the entrance. The security lives in that order of steps, not in the QR code.
 
-> **Status: early development.** Sites, Staff members, the Clock flow and Site Posters are in place; the staff clock page is being built in milestone M1. See the [milestones](https://github.com/fiqahmad/clockfence-qr-attendance-geofence/milestones) for progress.
+> **Status: early development.** Clocking in and out works end to end (Sites, Staff members, Posters, the clock page). The Register, Manual overrides and reports come next in milestone M2. See the [milestones](https://github.com/fiqahmad/clockfence-qr-attendance-geofence/milestones) for progress.
 
 ## Features (v1.0)
 
@@ -17,6 +17,26 @@ Staff clock in and out with their own phone, with no app to install. The phone's
 - **Reports**: daily board, monthly summary, CSV and XLSX export for payroll.
 - **Privacy by design**: location is read once per Clock, never tracked in the background; coordinates are audit-only and pruned after 90 days.
 - **English and Bahasa Melayu.**
+
+## How it works
+
+Each Site prints one static QR **Poster** for its entrance. A Staff member clocks in four steps:
+
+1. **Tap Clock in** on their phone. The page reads the location **once**; nothing tracks them in the background.
+2. **The server checks the location** against the Staff member's own home Site (the Site is never taken from the phone). Outside the fence, or with a GPS fix worse than 100 m, the Clock is refused with a message that says what to do.
+3. **Only a pass issues a Clock token**: random, single-use, valid for 90 seconds and stored only as a hash. Only now does the **camera open**.
+4. **Scan the Poster.** The scan spends the token first, then checks it belongs to this person and that the Poster is for the same Site, and records the Clock-in (with late minutes) or Clock-out.
+
+The Poster is not a secret: a photo of it does nothing from home, because the location check comes first. A token cannot be replayed, shared with a colleague or used at another Site's Poster. The first Clock of the day is in, the next is out, and a Clock-out within 5 minutes of the Clock-in is refused so a double tap cannot end the day.
+
+```text
+Phone                          Server
+  tap Clock in
+  read location once ─────────► Geo-check against home Site
+                     ◄───────── pass: 90 s single-use token  (fail: named reason)
+  open camera, scan Poster ───► spend token → same person? same Site? → record Clock
+                     ◄───────── "Clocked in at 08:55"
+```
 
 **Not included, on purpose:** payroll, leave management, biometrics, native apps, background tracking, Google Maps, multi-tenancy.
 
@@ -32,6 +52,25 @@ Staff clock in and out with their own phone, with no app to install. The phone's
 
 ## Quick start
 
+### Install with Claude Code (recommended)
+
+```bash
+git clone https://github.com/fiqahmad/clockfence-qr-attendance-geofence.git clockfence
+cd clockfence
+claude
+```
+
+Then type `/install-clockfence`. Claude Code asks one question (demo, Docker or production), checks PHP, Composer and Node, installs, runs the smoke tests and tells you the URL and the admin login. It never overwrites an existing `.env` or wipes a database.
+
+Using another agent (Cursor, Codex, Copilot)? Open the folder and paste:
+
+```text
+Install ClockFence in this folder by following AGENTS.md, section "Install".
+Ask me which mode I want (demo, docker, production) before you start.
+Do not overwrite an existing .env or run migrate:fresh on an existing database.
+When done, run the smoke tests and tell me the URL and the admin login.
+```
+
 ### Try it with demo data (SQLite)
 
 ```bash
@@ -42,7 +81,9 @@ php artisan db:seed
 php artisan serve
 ```
 
-`composer setup` installs dependencies, creates `.env` (SQLite by default), migrates and builds the front end. The seeder prints the demo logins (one Admin, one Manager, three Staff members). Open `http://localhost:8000/admin`.
+`composer setup` installs dependencies, creates `.env` (SQLite by default), migrates and builds the front end. The seeder prints the demo logins (one Admin, one Manager, three Staff members). Open `http://localhost:8000`: Admins land in the admin panel, Staff members on the clock page.
+
+To try a real Clock on a phone you need HTTPS, because phones only allow GPS and the camera on secure pages. Expose the local server through a tunnel (for example `cloudflared tunnel --url http://localhost:8000`), set a demo Site's latitude and longitude to where you are, and print its Poster from the Sites list.
 
 ### Self-host as a normal Laravel app
 
@@ -70,10 +111,6 @@ docker compose exec app php artisan clockfence:install
 ```
 
 The stack runs the app on port 8000 (`APP_PORT`), MySQL 8.4, a queue worker and the scheduler, and migrates on start. Put it behind a reverse proxy with HTTPS (Caddy, Nginx with Let's Encrypt, or Cloudflare).
-
-### Install with a coding agent
-
-Open the cloned folder in Claude Code and run `/install-clockfence`. Other agents: ask them to follow the "Install" section of [`AGENTS.md`](AGENTS.md).
 
 ### Check the install
 

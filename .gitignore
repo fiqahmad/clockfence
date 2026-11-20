@@ -36,6 +36,8 @@ yarn-error.log
 /.claude/skills/*
 # Project skills are committed; Boost-generated skills stay ignored.
 !/.claude/skills/install-clockfence/
+!/.claude/skills/add-clock-failure/
+!/.claude/skills/clock-flow-change/
 /.codex
 /.cursor
 /.factory
