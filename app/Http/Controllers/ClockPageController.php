@@ -7,6 +7,7 @@ use App\Enums\ClockFailure;
 use App\Models\User;
 use App\Register\AttendanceRegister;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\View\View;
 
 /**
@@ -29,6 +30,7 @@ class ClockPageController extends Controller
                 'urls' => [
                     'geoCheck' => route('clock.geo-check'),
                     'clock' => route('clock.store'),
+                    'qrFallback' => Vite::asset('resources/js/qr-fallback.ts'),
                 ],
                 'copy' => __('clock.page'),
                 'failures' => ClockFailure::catalogue(),

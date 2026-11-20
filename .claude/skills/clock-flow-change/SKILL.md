@@ -45,4 +45,4 @@ Then the full check: `composer ci:check`.
 
 ## 4. Browser changes
 
-For `public/js/clock.js`: keep it dependency-free vanilla JS, keep the camera closed until a token arrives, and stop the camera on every exit path. Test on a real phone over HTTPS (for example with `php artisan serve` behind a tunnel), since GPS and camera do not work on plain HTTP.
+For `public/js/clock.js`: keep it dependency-free vanilla JS (the only exception is the jsQR fallback, loaded on demand from `resources/js/qr-fallback.ts`), keep the camera closed until a token arrives, and stop the camera on every exit path. Test on a real phone over HTTPS (for example with `php artisan serve` behind a tunnel), since GPS and camera do not work on plain HTTP.

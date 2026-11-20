@@ -20,7 +20,7 @@ return [
         'late' => 'Anda lewat :minutes minit.',
         'try_again' => 'Cuba lagi',
         'cancel' => 'Batal',
-        'no_scanner' => 'Pelayar ini tidak boleh membaca kod QR. Buka halaman ini dalam Chrome, Edge atau Samsung Internet.',
+        'no_scanner' => 'Pelayar ini tidak boleh membaca kod QR. Kemas kini pelayar, atau buka halaman ini dalam Chrome atau Safari.',
         'install_hint' => 'Petua: tambah halaman ini ke skrin utama untuk membukanya dengan satu ketikan.',
         'admin_link' => 'Panel admin',
         'logout' => 'Log keluar',
