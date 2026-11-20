@@ -20,7 +20,7 @@ return [
         'late' => 'You were :minutes minutes late.',
         'try_again' => 'Try again',
         'cancel' => 'Cancel',
-        'no_scanner' => 'This browser cannot read QR codes. Open this page in Chrome, Edge or Samsung Internet.',
+        'no_scanner' => 'This browser cannot read QR codes. Update it, or open this page in Chrome or Safari.',
         'install_hint' => 'Tip: add this page to your home screen to open it in one tap.',
         'admin_link' => 'Admin panel',
         'logout' => 'Log out',

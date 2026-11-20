@@ -74,3 +74,10 @@ it('serves the web app manifest and the clock script', function () {
         ->and(file_get_contents(public_path('js/clock.js')))->toContain('getCurrentPosition')
         ->not->toContain('watchPosition');
 });
+
+it('points the page at the built jsQR fallback for browsers without BarcodeDetector', function () {
+    $config = clockConfigFrom($this->actingAs($this->staffMember)->get('/clock')->getContent());
+
+    expect($config['urls']['qrFallback'])->toContain('/build/assets/qr-fallback')
+        ->and(file_get_contents(public_path('js/clock.js')))->toContain('config.urls.qrFallback');
+});

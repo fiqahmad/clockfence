@@ -29,6 +29,11 @@ services:
     queue:
         <<: *app
         command: ['php', '/var/www/html/artisan', 'queue:work', '--tries=3']
+        depends_on:
+            app:
+                condition: service_healthy
+            mysql:
+                condition: service_healthy
         environment:
             DB_CONNECTION: mysql
             DB_HOST: mysql
@@ -46,6 +51,11 @@ services:
     scheduler:
         <<: *app
         command: ['php', '/var/www/html/artisan', 'schedule:work']
+        depends_on:
+            app:
+                condition: service_healthy
+            mysql:
+                condition: service_healthy
         environment:
             DB_CONNECTION: mysql
             DB_HOST: mysql

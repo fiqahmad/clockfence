@@ -176,7 +176,29 @@
         cameraEl.hidden = true;
     }
 
+    // Browsers without BarcodeDetector (Safari on iOS) load the jsQR decoder on demand.
+    function loadDecoder() {
+        if ('BarcodeDetector' in window || typeof window.jsQR === 'function') {
+            return Promise.resolve();
+        }
+
+        return new Promise(function (resolve) {
+            var script = document.createElement('script');
+            script.type = 'module';
+            script.src = config.urls.qrFallback;
+            script.onload = resolve;
+            script.onerror = resolve;
+            document.head.appendChild(script);
+        });
+    }
+
     function scanWith(token, expiresIn) {
+        loadDecoder().then(function () {
+            openCamera(token, expiresIn);
+        });
+    }
+
+    function openCamera(token, expiresIn) {
         var detect = createDetector();
         if (!detect) {
             setStatus(copy.no_scanner, 'bad');

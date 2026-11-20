@@ -19,4 +19,5 @@ All notable changes to ClockFence are documented here. The format follows [Keep 
 - The Clock flow: a Geo-check issues a 90-second single-use Clock token, and scanning the Site Poster spends it and records a Clock-in or Clock-out with Late minutes.
 - A printable A4 Poster per Site, in English and Bahasa Melayu.
 - Staff login and the clock page: an installable web app that reads the location once, opens the camera only with a Clock token, scans the Poster and shows each Clock failure in the Staff member's language.
+- QR scanning on iPhone and iPad through a jsQR fallback that loads only when the browser has no built-in QR reader.
 - Project skills for Claude Code: `add-clock-failure` and `clock-flow-change`.
