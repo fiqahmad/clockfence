@@ -31,15 +31,15 @@ If `.env` exists, leave it alone and only add missing `CLOCKFENCE_*` keys from `
 
 - **demo**: `composer setup`, then `php artisan db:seed`.
 - **docker**:
-  1. If there is no `.env`: `cp .env.example .env`, then set `APP_URL`, `APP_ENV=production`, `APP_DEBUG=false` and `DB_PASSWORD`.
-  2. `docker compose build`
-  3. If `APP_KEY` is empty: `docker compose run --rm --no-deps -T -e AUTORUN_ENABLED=false app php artisan key:generate --show` and write the last line into `APP_KEY`.
-  4. `docker compose up -d --wait`
-  5. `docker compose exec app php artisan clockfence:install`
+    1. If there is no `.env`: `cp .env.example .env`, then set `APP_URL`, `APP_ENV=production`, `APP_DEBUG=false` and `DB_PASSWORD`.
+    2. `docker compose build`
+    3. If `APP_KEY` is empty: `docker compose run --rm --no-deps -T -e AUTORUN_ENABLED=false app php artisan key:generate --show` and write the last line into `APP_KEY`.
+    4. `docker compose up -d --wait`
+    5. `docker compose exec app php artisan clockfence:install`
 - **production**:
-  1. `composer install --no-dev --optimize-autoloader` and `npm ci && npm run build`
-  2. If there is no `.env`: `cp .env.example .env` and `php artisan key:generate`; set `APP_URL` and `DB_*`.
-  3. `php artisan migrate --force`, `php artisan clockfence:install`, `php artisan optimize`
+    1. `composer install --no-dev --optimize-autoloader` and `npm ci && npm run build`
+    2. If there is no `.env`: `cp .env.example .env` and `php artisan key:generate`; set `APP_URL` and `DB_*`.
+    3. `php artisan migrate --force`, `php artisan clockfence:install`, `php artisan optimize`
 
 ## 4. Verify
 
