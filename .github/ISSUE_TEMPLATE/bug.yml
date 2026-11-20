@@ -1,0 +1,51 @@
+name: Bug report
+description: Something does not work as documented.
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Found a way to Clock without being at the Site, or a leak of coordinates or tokens? That is a security issue: please report it privately as described in SECURITY.md, not here.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead. Include the Clock failure message if one was shown.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Log in as a Staff member
+        2. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: ClockFence version or commit
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How is it installed?
+      options:
+        - Demo (SQLite)
+        - Docker
+        - Laravel app on a server
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Phone and browser (for clock page bugs)
+      placeholder: e.g. Android 15, Chrome 140
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant lines from storage/logs. Remove personal data and coordinates first.
+      render: text

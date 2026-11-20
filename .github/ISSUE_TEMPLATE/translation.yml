@@ -1,0 +1,25 @@
+name: Translation
+description: Add or fix a language.
+labels: [translation, needs-triage]
+body:
+  - type: input
+    id: locale
+    attributes:
+      label: Locale code
+      placeholder: e.g. id, zh_CN, ta
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: New language or a fix?
+      options:
+        - New language
+        - Fix an existing translation
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: For a fix, the key, the current text and the better text.
