@@ -76,6 +76,34 @@ class User extends Authenticatable implements FilamentUser
     }
 
     /**
+     * Stop this Staff member logging in or Clocking. Staff members are never deleted.
+     */
+    public function deactivate(): void
+    {
+        $this->forceFill(['status' => StaffStatus::Inactive])->save();
+    }
+
+    /**
+     * Undo a deactivation: back to Active, or to Invited if they never set a password.
+     */
+    public function reactivate(): void
+    {
+        $this->forceFill([
+            'status' => $this->email_verified_at === null ? StaffStatus::Invited : StaffStatus::Active,
+        ])->save();
+    }
+
+    /**
+     * The User's single role, if any.
+     */
+    public function primaryRole(): ?Role
+    {
+        $roleName = $this->getRoleNames()->first();
+
+        return $roleName === null ? null : Role::from($roleName);
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
