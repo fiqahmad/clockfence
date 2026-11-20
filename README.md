@@ -4,7 +4,7 @@
 
 Staff clock in and out with their own phone, with no app to install. The phone's location is checked against the staff member's own Site first. Only a pass issues a single-use token, and only then does the camera open to scan the static QR poster at the entrance. The security lives in that order of steps, not in the QR code.
 
-> **Status: early development.** The foundation is in place (admin panel, roles, installer). The clock flow itself is being built in milestone M1. See the [milestones](https://github.com/fiqahmad/clockfence/milestones) for progress.
+> **Status: early development.** Sites, Staff members, the Clock flow and Site Posters are in place; the staff clock page is being built in milestone M1. See the [milestones](https://github.com/fiqahmad/clockfence-qr-attendance-geofence/milestones) for progress.
 
 ## Features (v1.0)
 
@@ -35,7 +35,7 @@ Staff clock in and out with their own phone, with no app to install. The phone's
 ### Try it with demo data (SQLite)
 
 ```bash
-git clone https://github.com/fiqahmad/clockfence.git
+git clone https://github.com/fiqahmad/clockfence-qr-attendance-geofence.git clockfence
 cd clockfence
 composer setup
 php artisan db:seed
@@ -60,7 +60,7 @@ Then run a queue worker (`php artisan queue:work --tries=3`) and the scheduler c
 ### Self-host with Docker
 
 ```bash
-git clone https://github.com/fiqahmad/clockfence.git && cd clockfence
+git clone https://github.com/fiqahmad/clockfence-qr-attendance-geofence.git clockfence && cd clockfence
 cp .env.example .env    # set APP_URL, APP_ENV=production, APP_DEBUG=false, DB_PASSWORD, MAIL_*
 docker compose build
 docker compose run --rm --no-deps -T -e AUTORUN_ENABLED=false app php artisan key:generate --show
