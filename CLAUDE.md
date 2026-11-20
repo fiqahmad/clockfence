@@ -5,6 +5,8 @@
 ### Skills (`.claude/skills/`)
 
 - `/install-clockfence` - first-time install, any mode
+- `/add-clock-failure` - a new way a Clock can be refused
+- `/clock-flow-change` - any change in `app/Clock`, `app/Register` or `public/js/clock.js`
 
 ### How to work here
 
