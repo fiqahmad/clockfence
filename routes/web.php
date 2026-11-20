@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClockController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\SitePosterController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
@@ -11,3 +13,12 @@ Route::middleware(['guest', 'signed'])->group(function () {
         ->middleware('throttle:6,1')
         ->name('invitations.store');
 });
+
+Route::middleware('auth')->prefix('clock')->name('clock.')->group(function () {
+    Route::post('/geo-check', [ClockController::class, 'geoCheck'])->name('geo-check');
+    Route::post('/', [ClockController::class, 'store'])->name('store');
+});
+
+Route::get('/sites/{site}/poster', SitePosterController::class)
+    ->middleware(['auth', 'can:view,site'])
+    ->name('sites.poster');

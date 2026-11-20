@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Role;
+use App\Models\Site;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Filament\Auth\Pages\Login;
@@ -32,4 +33,14 @@ it('lets an admin log in to the admin panel', function () {
 
     $this->assertAuthenticatedAs($admin);
     $this->get('/admin')->assertOk();
+});
+
+it('renders a site poster', function () {
+    $this->seed(RoleSeeder::class);
+    $site = Site::factory()->create();
+
+    $this->actingAs(User::factory()->withRole(Role::Admin)->create())
+        ->get(route('sites.poster', $site))
+        ->assertOk()
+        ->assertSee('<svg', escape: false);
 });

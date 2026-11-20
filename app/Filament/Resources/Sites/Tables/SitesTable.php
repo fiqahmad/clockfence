@@ -45,6 +45,12 @@ class SitesTable
             ])
             ->recordActions([
                 EditAction::make(),
+                Action::make('poster')
+                    ->label(__('sites.actions.poster'))
+                    ->icon(Heroicon::OutlinedQrCode)
+                    ->url(fn (Site $record): string => route('sites.poster', $record))
+                    ->openUrlInNewTab()
+                    ->visible(fn (Site $record): bool => ! $record->isArchived()),
                 Action::make('archive')
                     ->label(__('sites.actions.archive'))
                     ->icon(Heroicon::OutlinedArchiveBox)

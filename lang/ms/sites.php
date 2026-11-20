@@ -31,6 +31,7 @@ return [
         7 => 'Ahad',
     ],
     'actions' => [
+        'poster' => 'Poster',
         'archive' => 'Arkibkan',
         'unarchive' => 'Keluarkan dari arkib',
         'archive_confirm' => 'Tapak ini menyimpan sejarahnya tetapi posternya tidak lagi berfungsi.',
