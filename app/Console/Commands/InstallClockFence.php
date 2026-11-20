@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Enums\Role;
+use App\Enums\StaffStatus;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Console\Attributes\Description;
@@ -54,7 +55,7 @@ class InstallClockFence extends Command
             return self::FAILURE;
         }
 
-        $admin = User::create($validator->validated());
+        $admin = User::create([...$validator->validated(), 'status' => StaffStatus::Active]);
         $admin->assignRole(Role::Admin->value);
 
         $this->components->info("Admin {$admin->email} created. Log in at ".url('/admin').'.');

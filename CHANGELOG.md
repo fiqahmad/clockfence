@@ -12,3 +12,7 @@ All notable changes to ClockFence are documented here. The format follows [Keep 
 - `config/clockfence.php` with the `CLOCKFENCE_*` settings.
 - Smoke test group: `php artisan test --group=smoke`.
 - CI on PHP 8.3 and 8.4 against SQLite, MySQL and PostgreSQL.
+- Sites with a geofence, start time, timezone and Working days, managed by Admins and Archived instead of deleted.
+- Staff members with a staff number, home Site, role and language, invited by email to set their own password, and deactivated instead of deleted.
+- Geofence distance, Site day and lateness rules.
+- The 16 named Clock failures with English and Bahasa Melayu messages.
